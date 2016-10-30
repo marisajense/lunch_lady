@@ -33,9 +33,9 @@ def main_menu
 end
 
 def menu_options
-  puts "\n|Main Dishes|"
+  puts "\n  |***Main Dishes***|"
     @main.each { |x, i| puts "  #{x[:item]} |" " $#{x[:price]} |" " #{x[:calories]}" }
-  puts "\n\n|Side Dishes|"
+  puts "\n\n  |***Side Dishes***|"
     @side.each { |x, i| puts "  #{x[:item]} |" " $#{x[:price]} |" " #{x[:calories]}" }
 end
 
@@ -50,7 +50,7 @@ end
 def main_order
   @user_main_order
   puts "\nWhich main dish would you like?"
-  puts "\n|Main Dishes|"
+  puts "\n  |***Main Dishes***|"
     @main.each_with_index { |x, i| puts "#{i + 1}. #{x[:item]} |" " $#{x[:price]} |" " #{x[:calories]}" }
     main_order = gets.strip.to_i - 1 #because pizza is in 0 index
     case main_order
@@ -64,7 +64,7 @@ end
 def side_order
   @user_side_order
   puts "\nWhich side dish would you like?"
-  puts "\n|Side Dishes|"
+  puts "\n  |***Side Dishes***|"
     @side.each_with_index { |x, i| puts "#{i + 1}. #{x[:item]} |" " $#{x[:price]} |" " #{x[:calories]}" }
   side_order = gets.strip.to_i - 1
   case side_order
@@ -94,6 +94,17 @@ def not_ready
     puts "Goodbye! Thanks for coming in!"
     exit
   else checkout
+  end
+end
+
+def see_calories
+  total_cal = @user_main_order[0][:calories] + @user_side_order[0][:calories] + @user_side_order[1][:calories]
+  puts "\nWould you like to see total calories? Y or N"
+  user_calories = gets.strip.downcase
+  if user_calories == 'y'
+    puts "Total calories: #{total_cal}"
+  else
+    checkout
   end
 end
 
@@ -133,6 +144,7 @@ def menu
       main_order
       side_order
       side_order
+      see_calories
       repeat_order
       wallet_end
     when '3'
