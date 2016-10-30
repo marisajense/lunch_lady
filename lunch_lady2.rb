@@ -80,8 +80,20 @@ def repeat_order
   check = gets.strip.downcase
   if check == 'y'
   checkout
+  elsif check == 'n'
+  not_ready
   else
-  menu
+    menu
+  end
+end
+
+def not_ready
+  puts "Cancel order? Y or N"
+  user_cancel = gets.strip.downcase
+  if user_cancel == 'y'
+    puts "Goodbye! Thanks for coming in!"
+    exit
+  else checkout
   end
 end
 
